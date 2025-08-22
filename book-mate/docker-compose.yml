@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres
+    container_name: book-mate-postgres
+    environment:
+      POSTGRES_USER: bookmate
+      POSTGRES_PASSWORD: bookmate
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: bookmate
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/data/postgres
+    networks:
+      - book-mate-network
+    restart: unless-stopped
+  mail-dev:
+    image: maildev/maildev
+    container_name: book-mate-maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - book-mate-network
+    restart: unless-stopped
+networks:
+  book-mate-network:
+    driver: bridge
+
+volumes:
+  postgres: 
+    driver: local
+
