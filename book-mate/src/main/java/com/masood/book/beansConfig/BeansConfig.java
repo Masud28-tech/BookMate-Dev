@@ -8,12 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.masood.book.security.UserDetailsServiceImpl;
-
 @Configuration
 public class BeansConfig {
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -29,5 +27,7 @@ public class BeansConfig {
         return authProvider;
     }
 
-    
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 }
